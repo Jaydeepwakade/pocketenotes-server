@@ -86,7 +86,7 @@ app.post("/note-groups/:id/notes", async (req, res) => {
     noteGroup.notes.push(savedNote._id);
     await noteGroup.save();
     // console.log(noteGroup)
-    console.log(savedNote._id)
+    
 
     res.status(201).json(savedNote);
   } catch (error) {
