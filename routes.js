@@ -3,15 +3,12 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 5000;
-const moment = require('moment');
+
 
 app.use(cors());
 app.use(express.json());
 
-function formatDate(date) {
-  const options = { year: 'numeric', month: 'long', day: '2-digit' };
-  return date.toLocaleDateString('en-US', options);
-}
+
 
 const connectDb = async () => {
   try {
@@ -28,7 +25,7 @@ const NoteSchema = new mongoose.Schema({
   content: { type: String, required: true },
   date: {
     type: String,
-    default: () => formatDate(new Date())
+    require:true
   },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
