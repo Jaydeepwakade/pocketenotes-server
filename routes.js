@@ -8,6 +8,11 @@ const moment = require('moment');
 app.use(cors());
 app.use(express.json());
 
+function formatDate(date) {
+  const options = { year: 'numeric', month: 'long', day: '2-digit' };
+  return date.toLocaleDateString('en-US', options);
+}
+
 const connectDb = async () => {
   try {
     await mongoose.connect(
@@ -23,7 +28,7 @@ const NoteSchema = new mongoose.Schema({
   content: { type: String, required: true },
   date: {
     type: String,
-    default: () => moment().format('MMMM DD, YYYY')
+    default: () => formatDate(new Date())
   },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
