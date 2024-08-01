@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 5000;
+const moment = require('moment');
 
 app.use(cors());
 app.use(express.json());
@@ -20,7 +21,10 @@ const connectDb = async () => {
 
 const NoteSchema = new mongoose.Schema({
   content: { type: String, required: true },
-  date: { type: Date, default: Date.now },
+  date: {
+    type: String,
+    default: () => moment().format('MMMM DD, YYYY')
+  },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 const Note = mongoose.model("Note", NoteSchema);
